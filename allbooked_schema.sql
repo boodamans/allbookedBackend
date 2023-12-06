@@ -12,7 +12,7 @@ CREATE TABLE users (
 -- Create reviews table
 CREATE TABLE reviews (
   review_id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(username),
+  user_id VARCHAR REFERENCES users(username),
   google_books_api_id VARCHAR(255),
   rating INTEGER,
   review_text TEXT,
