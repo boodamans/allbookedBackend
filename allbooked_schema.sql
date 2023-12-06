@@ -9,22 +9,11 @@ CREATE TABLE users (
   read_books INTEGER[]
 );
 
--- Create books table
-CREATE TABLE books (
-  book_id SERIAL PRIMARY KEY,
-  google_books_api_id VARCHAR(255),
-  title VARCHAR(255),
-  author VARCHAR(255),
-  published_date VARCHAR(10),
-  description TEXT,
-  cover_image_url VARCHAR(255)
-);
-
 -- Create reviews table
 CREATE TABLE reviews (
   review_id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(username),
-  book_id INTEGER REFERENCES books(book_id),
+  google_books_api_id VARCHAR(255),
   rating INTEGER,
   review_text TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -34,7 +23,7 @@ CREATE TABLE reviews (
 CREATE TABLE favorite_books (
   favorite_id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(username),
-  book_id INTEGER REFERENCES books(book_id)
+  google_books_api_id VARCHAR(255)
 );
 
 -- Create followers table
