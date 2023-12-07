@@ -22,21 +22,20 @@ CREATE TABLE reviews (
 -- Create favorite_books table
 CREATE TABLE favorite_books (
   favorite_id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(username),
+  user_id VARCHAR REFERENCES users(username),
   google_books_api_id VARCHAR(255)
 );
 
 -- Create followers table
 CREATE TABLE followers (
   follower_id SERIAL PRIMARY KEY,
-  follower_user_id INTEGER REFERENCES users(username),
-  followee_user_id INTEGER REFERENCES users(username)
+  follower_user_id VARCHAR REFERENCES users(username),
+  followee_user_id VARCHAR REFERENCES users(username)
 );
 
 -- Create review_likes table
 CREATE TABLE review_likes (
   like_id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(username),
-  review_id INTEGER REFERENCES reviews(review_id),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  user_id VARCHAR REFERENCES users(username),
+  review_id INTEGER REFERENCES reviews(review_id)
 );

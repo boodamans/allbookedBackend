@@ -5,6 +5,7 @@ const { validate } = require('jsonschema');
 const reviewNewSchema = require('../schemas/reviewNew.json');
 const reviewUpdateSchema = require('../schemas/reviewUpdate.json');
 const { BadRequestError, NotFoundError } = require('../expressError');
+const { ensureCorrectUserOrAdmin } = require('../middleware/auth');
 
 // Create a new review
 router.post('/', async (req, res, next) => {
@@ -33,7 +34,7 @@ router.get('/:reviewId', async (req, res, next) => {
 });
 
 // Update a review
-router.patch('/:reviewId', async (req, res, next) => {
+router.patch('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     // Validate the request body against the reviewUpdate schema
     const validationResult = validate(req.body, reviewUpdateSchema);
@@ -49,7 +50,7 @@ router.patch('/:reviewId', async (req, res, next) => {
 });
 
 // Delete a review
-router.delete('/:reviewId', async (req, res, next) => {
+router.delete('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => {
   try {
     await Review.delete(req.params.reviewId);
     return res.json({ message: 'Review deleted successfully' });
@@ -57,7 +58,5 @@ router.delete('/:reviewId', async (req, res, next) => {
     return next(err);
   }
 });
-
-// Other routes can be added as needed
 
 module.exports = router;
