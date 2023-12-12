@@ -31,6 +31,20 @@ class ReviewLike {
       throw new BadRequestError('Invalid unlike request');
     }
   }
+  
+ /**
+   * Get the number of likes for a review.
+   * @param {number} reviewId - The ID of the review.
+   * @returns {number} - The count of likes for the review.
+   */
+  static async getLikes(reviewId) {
+    const result = await db.query(
+      `SELECT COUNT(*) AS like_count FROM review_likes WHERE review_id = $1`,
+      [reviewId]
+    );
+
+    return result.rows[0].like_count;
+  }
 }
 
 module.exports = ReviewLike;

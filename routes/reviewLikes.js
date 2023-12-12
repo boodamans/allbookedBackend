@@ -36,4 +36,15 @@ router.delete('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
   }
 });
 
+// Get like count for a review
+router.get('/count/:reviewId', async (req, res, next) => {
+  try {
+    const { reviewId } = req.params;
+    const likeCount = await ReviewLike.getLikes(reviewId);
+    return res.json({ likeCount });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;
