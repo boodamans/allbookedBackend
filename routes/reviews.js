@@ -57,6 +57,27 @@ router.delete('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => 
   } catch (err) {
     return next(err);
   }
+
+  
+});
+
+// Get all reviews for a specific book
+
+router.get('/book/:google_books_api_id', async (req, res, next) => {
+  try {
+    const { google_books_api_id } = req.params;
+
+    // Ensure google_books_api_id is provided
+    if (!google_books_api_id) {
+      throw new BadRequestError('Google Books API ID is required');
+    }
+
+    const reviews = await Review.getByBook(google_books_api_id);
+
+    return res.json({ reviews });
+  } catch (err) {
+    return next(err);
+  }
 });
 
 module.exports = router;
