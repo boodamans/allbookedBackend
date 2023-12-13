@@ -5,7 +5,7 @@ const { BadRequestError } = require('../expressError');
 const { ensureCorrectUserOrAdmin } = require('../middleware/auth');
 
 // Create a like for a review
-router.post('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const { username, reviewId } = req.body;
 
@@ -21,7 +21,7 @@ router.post('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
 });
 
 // Unlike a review
-router.delete('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
     const { username, reviewId } = req.body;
 
