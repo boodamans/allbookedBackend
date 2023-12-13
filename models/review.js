@@ -64,6 +64,15 @@ class Review {
     return result.rows;
   }
 
+  static async getReviewsByUser(username) {
+    const result = await db.query(
+      `SELECT * FROM reviews WHERE user_id = $1 ORDER BY created_at DESC`,
+      [username]
+    );
+  
+    return result.rows;
+  }
+
   /** Update a specific review.
    *
    * Data can include:

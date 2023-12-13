@@ -80,4 +80,16 @@ router.get('/book/:google_books_api_id', async (req, res, next) => {
   }
 });
 
+//Get reviews by user
+
+router.get('/user/:username', async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const userReviews = await Review.getReviewsByUser(username);
+    return res.json({ reviews: userReviews });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 module.exports = router;
