@@ -47,4 +47,19 @@ router.get('/count/:reviewId', async (req, res, next) => {
   }
 });
 
+router.get('/user/:username', async (req, res, next) => {
+  try {
+    const { username } = req.params;
+
+    if (!username) {
+      throw new BadRequestError('Username is required');
+    }
+
+    const likedReviews = await ReviewLike.getLikedReviews(username);
+    return res.json({ likes: likedReviews });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 module.exports = router;

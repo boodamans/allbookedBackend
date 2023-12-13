@@ -31,7 +31,7 @@ class ReviewLike {
       throw new BadRequestError('Invalid unlike request');
     }
   }
-  
+
  /**
    * Get the number of likes for a review.
    * @param {number} reviewId - The ID of the review.
@@ -44,6 +44,17 @@ class ReviewLike {
     );
 
     return result.rows[0].like_count;
+  }
+
+  static async getLikedReviews(username) {
+    const result = await db.query(
+      `SELECT review_id
+         FROM review_likes
+         WHERE user_id = $1`,
+      [username]
+    );
+  
+    return result.rows.map(row => row.review_id);
   }
 }
 
