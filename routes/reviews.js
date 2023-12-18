@@ -34,7 +34,7 @@ router.get('/:reviewId', async (req, res, next) => {
 });
 
 // Update a review
-router.patch('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.patch('/:reviewId', async (req, res, next) => {
   try {
     // Validate the request body against the reviewUpdate schema
     const validationResult = validate(req.body, reviewUpdateSchema);
@@ -50,7 +50,7 @@ router.patch('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => {
 });
 
 // Delete a review
-router.delete('/:reviewId', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.delete('/:reviewId', async (req, res, next) => {
   try {
     await Review.delete(req.params.reviewId);
     return res.json({ message: 'Review deleted successfully' });
