@@ -5,7 +5,7 @@ const { BadRequestError } = require('../expressError');
 const { ensureCorrectUserOrAdmin } = require('../middleware/auth');
 
 // Follow a user
-router.post('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const { followerUsername, followeeUsername } = req.body;
 
@@ -21,7 +21,7 @@ router.post('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
 });
 
 // Unfollow a user
-router.delete('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
     const { followerUsername, followeeUsername } = req.body;
 

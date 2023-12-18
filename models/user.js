@@ -203,6 +203,30 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
+
+    /** Get the list of users that the current user is following.
+   *
+   * Returns: [username1, username2, ...]
+   * 
+   * Throws NotFoundError if not found.
+   **/
+
+  static async getFollowing(username) {
+    const result = await db.query(
+      `SELECT followee_user_id
+       FROM followers
+       WHERE follower_user_id = $1`,
+      [username],
+    );
+
+    const following = result.rows.map(row => row.followee_user_id);
+
+    if (!following) {
+      throw new NotFoundError(`No following found for user: ${username}`);
+    }
+
+    return following;
+  }
 }
 
 

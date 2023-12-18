@@ -78,6 +78,26 @@ router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, nex
   }
 });
 
+// Fetch a user's follows
+
+router.get('/:username/following', ensureCorrectUserOrAdmin, async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const user = await User.get(username);
+
+    // Check if the user exists
+    if (!user) {
+      throw new ExpressError(`User ${username} not found`, 404);
+    }
+
+    const following = await User.getFollowing(username);
+
+    return res.json({ following });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 
 /** PATCH /[username] { user } => { user }
  *
