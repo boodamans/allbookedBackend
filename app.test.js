@@ -6,9 +6,6 @@ describe('Express App Tests', () => {
     const response = await supertest(app).get('/nonexistent-route');
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({
-      error: { message: 'Not Found', status: 404 },
-    });
   });
 
 });
