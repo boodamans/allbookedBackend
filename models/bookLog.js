@@ -1,6 +1,8 @@
 const db = require('../db');
 const { BadRequestError } = require('../expressError');
 
+// CURRENTLY NOT USED, FOR FUTURE FEATURES NOT YET IMPLEMENTED AS OF 12/21/2023
+
 class BookLog {
   /**
    * Add a book to the user's read books.

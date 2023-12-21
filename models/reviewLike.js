@@ -46,6 +46,7 @@ class ReviewLike {
     return result.rows[0].like_count;
   }
 
+// gets likes by specific user, currently unused
   static async getLikedReviews(username) {
     const result = await db.query(
       `SELECT review_id
